@@ -96,7 +96,6 @@ var SearchExample = React.createClass({
 
 
         if(searchString.length > 0){
-
             // We are searching. Filter the results.
 
             libraries = libraries.filter(function(l){
@@ -104,7 +103,9 @@ var SearchExample = React.createClass({
             });
         }
 
-        var accordionList = ( 
+
+
+     var accordionList = ( 
               <Accordion> 
                 <Panel header="แอนนิวตี้" eventKey="1">          {Array1.map(getValue)}</Panel>
                 <Panel header="ตลอดชีพ" eventKey="2">           {Array2.map(getValue)}</Panel>
@@ -114,19 +115,47 @@ var SearchExample = React.createClass({
                 <Panel header="โตเกียว เฮลธ์ แพ็คเกจ" eventKey="6">  {Array6.map(getValue)}</Panel>
               </Accordion>    
         );
+ 
 
-        return <div>
-                  <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Type here" />
+        var accordionsearch = (
                     <Accordion> 
                       {libraries.map(function(l){
                           return <input type="button" onClick={setText} value={l.name}/>
                         })}
                     </Accordion> 
+        );
+
+
+        return <div>
+                  <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Type here" />
+                {(() => {
+                    if(searchString == 0){
+                    return (
+                          <Accordion> 
+                          <Panel header="แอนนิวตี้" eventKey="1">          {Array1.map(getValue)}</Panel>
+                          <Panel header="ตลอดชีพ" eventKey="2">           {Array2.map(getValue)}</Panel>
+                          <Panel header="ชั่วระยะเวลา" eventKey="3">         {Array3.map(getValue)}</Panel>
+                          <Panel header="บำนาญ" eventKey="4">            {Array4.map(getValue)}</Panel>
+                          <Panel header="สะสมทรัพย์" eventKey="5">         {Array5.map(getValue)}</Panel>
+                          <Panel header="โตเกียว เฮลธ์ แพ็คเกจ" eventKey="6">  {Array6.map(getValue)}</Panel>
+                        </Accordion>  
+                    );
+                  }
+                  else{
+                  return (
+                      <Accordion> 
+                      {libraries.map(function(l){
+                          return <input type="button" onClick={setText} value={l.name}/>
+                        })}
+                    </Accordion>);
+
+                  }
+                })()}
                 </div>;
-
-
+        }
     }
-    });
+    );
+
 
 
 
@@ -138,20 +167,20 @@ var SearchExample = React.createClass({
 
 
       var libraries = [
-    { name: 'Backbone.js', url: 'http://documentcloud.github.io/backbone/'},
-    { name: 'AngularJS', url: 'https://angularjs.org/'},
-    { name: 'jQuery', url: 'http://jquery.com/'},
-    { name: 'Prototype', url: 'http://www.prototypejs.org/'},
-    { name: 'React', url: 'http://facebook.github.io/react/'},
-    { name: 'Ember', url: 'http://emberjs.com/'},
-    { name: 'Knockout.js', url: 'http://knockoutjs.com/'},
-    { name: 'Dojo', url: 'http://dojotoolkit.org/'},
-    { name: 'Mootools', url: 'http://mootools.net/'},
-    { name: 'Underscore', url: 'http://documentcloud.github.io/underscore/'},
-    { name: 'Lodash', url: 'http://lodash.com/'},
-    { name: 'Moment', url: 'http://momentjs.com/'},
-    { name: 'Express', url: 'http://expressjs.com/'},
-    { name: 'Koa', url: 'http://koajs.com/'},
+    { name: 'Backbone.js'},
+    { name: 'AngularJS'},
+    { name: 'jQuery'},
+    { name: 'Prototype'},
+    { name: 'React'},
+    { name: 'Ember'},
+    { name: 'Knockout.js'},
+    { name: 'Dojo'},
+    { name: 'Mootools'},
+    { name: 'Underscore'},
+    { name: 'Lodash'},
+    { name: 'Moment'},
+    { name: 'Express'},
+    { name: 'Koa'},
     ];
 
 		return(
@@ -165,7 +194,8 @@ var SearchExample = React.createClass({
                     >
                       	<Modal.Header>
                           
-                        <SearchExample items={ libraries } />
+                          <SearchExample items={ libraries } />
+                          
                           
                         </Modal.Header>
                       <Modal.Footer>

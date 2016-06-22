@@ -20477,7 +20477,6 @@
 	              searchString = this.state.searchString.trim().toLowerCase();
 
 	          if (searchString.length > 0) {
-
 	            // We are searching. Filter the results.
 
 	            libraries = libraries.filter(function (l) {
@@ -20526,22 +20525,75 @@
 	            )
 	          );
 
+	          var accordionsearch = _react2.default.createElement(
+	            _reactBootstrap.Accordion,
+	            null,
+	            libraries.map(function (l) {
+	              return _react2.default.createElement('input', { type: 'button', onClick: setText, value: l.name });
+	            })
+	          );
+
 	          return _react2.default.createElement(
 	            'div',
 	            null,
 	            _react2.default.createElement('input', { type: 'text', value: this.state.searchString, onChange: this.handleChange, placeholder: 'Type here' }),
-	            _react2.default.createElement(
-	              _reactBootstrap.Accordion,
-	              null,
-	              libraries.map(function (l) {
-	                return _react2.default.createElement('input', { type: 'button', onClick: setText, value: l.name });
-	              })
-	            )
+	            function () {
+	              if (searchString == 0) {
+	                return _react2.default.createElement(
+	                  _reactBootstrap.Accordion,
+	                  null,
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Panel,
+	                    { header: 'แอนนิวตี้', eventKey: '1' },
+	                    '          ',
+	                    Array1.map(getValue)
+	                  ),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Panel,
+	                    { header: 'ตลอดชีพ', eventKey: '2' },
+	                    '           ',
+	                    Array2.map(getValue)
+	                  ),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Panel,
+	                    { header: 'ชั่วระยะเวลา', eventKey: '3' },
+	                    '         ',
+	                    Array3.map(getValue)
+	                  ),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Panel,
+	                    { header: 'บำนาญ', eventKey: '4' },
+	                    '            ',
+	                    Array4.map(getValue)
+	                  ),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Panel,
+	                    { header: 'สะสมทรัพย์', eventKey: '5' },
+	                    '         ',
+	                    Array5.map(getValue)
+	                  ),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Panel,
+	                    { header: 'โตเกียว เฮลธ์ แพ็คเกจ', eventKey: '6' },
+	                    '  ',
+	                    Array6.map(getValue)
+	                  )
+	                );
+	              } else {
+	                return _react2.default.createElement(
+	                  _reactBootstrap.Accordion,
+	                  null,
+	                  libraries.map(function (l) {
+	                    return _react2.default.createElement('input', { type: 'button', onClick: setText, value: l.name });
+	                  })
+	                );
+	              }
+	            }()
 	          );
 	        }
 	      });
 
-	      var libraries = [{ name: 'Backbone.js', url: 'http://documentcloud.github.io/backbone/' }, { name: 'AngularJS', url: 'https://angularjs.org/' }, { name: 'jQuery', url: 'http://jquery.com/' }, { name: 'Prototype', url: 'http://www.prototypejs.org/' }, { name: 'React', url: 'http://facebook.github.io/react/' }, { name: 'Ember', url: 'http://emberjs.com/' }, { name: 'Knockout.js', url: 'http://knockoutjs.com/' }, { name: 'Dojo', url: 'http://dojotoolkit.org/' }, { name: 'Mootools', url: 'http://mootools.net/' }, { name: 'Underscore', url: 'http://documentcloud.github.io/underscore/' }, { name: 'Lodash', url: 'http://lodash.com/' }, { name: 'Moment', url: 'http://momentjs.com/' }, { name: 'Express', url: 'http://expressjs.com/' }, { name: 'Koa', url: 'http://koajs.com/' }];
+	      var libraries = [{ name: 'Backbone.js' }, { name: 'AngularJS' }, { name: 'jQuery' }, { name: 'Prototype' }, { name: 'React' }, { name: 'Ember' }, { name: 'Knockout.js' }, { name: 'Dojo' }, { name: 'Mootools' }, { name: 'Underscore' }, { name: 'Lodash' }, { name: 'Moment' }, { name: 'Express' }, { name: 'Koa' }];
 
 	      return _react2.default.createElement(
 	        _reactBootstrap.ButtonToolbar,
