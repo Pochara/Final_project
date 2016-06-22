@@ -17,11 +17,7 @@ export default class Form extends React.Component{
           text:"",
           searchString:""
         };
-
     }
-
-
-	
     render() {
 		function showToast(){
 			alert("Android");
@@ -53,6 +49,7 @@ export default class Form extends React.Component{
         //Set Value to Textbox Functionvar
         var setText=(event)=>{
 				  this.setState({text: event.target.value});
+                  this.setState({show: false});
         };
         //Use Array to Collect All Value on Input Button
         var Array1= ["Hello1","Hello2","Hello3"];
@@ -65,63 +62,56 @@ export default class Form extends React.Component{
         //Return Textbox
         var getValue=(value)=>{
         		return(
-        			<input type="button" onClick={setText} value={value}/>
+        			<input type="button" onClick={setText} value={value.name}/>
+
        			);
         };
 
-
-
-
-
-
-
 var SearchExample = React.createClass({
-
     getInitialState: function(){
         return { searchString: '' };
     },
     handleChange: function(e){
-
         // If you comment out this line, the text box will not change its value.
         // This is because in React, an input cannot change independently of the value
         // that was assigned to it. In our case this is this.state.searchString.
 
         this.setState({searchString:e.target.value});
     },
-
+    checkAc: function(){
+        
+        return accordionList;
+    },
     render: function() {
-
         var libraries = this.props.items,
             searchString = this.state.searchString.trim().toLowerCase();
 
-
+        var accordionList;
         if(searchString.length > 0){
-
             // We are searching. Filter the results.
-
+            accordionList=
+            <Accordion> 
+                {libraries.map(function(l){
+                  return <input type="button" onClick={setText} value={l.name}/>
+                })}
+            </Accordion>;
             libraries = libraries.filter(function(l){
                 return l.name.toLowerCase().match( searchString );
             });
+        }else{
+            accordionList = <Accordion> 
+                <Panel header="แอนนิวตี้" eventKey="1">          {libraries.map(getValue)}</Panel>
+                <Panel header="ตลอดชีพ" eventKey="2">           {libraries.map(getValue)}</Panel>
+                <Panel header="ชั่วระยะเวลา" eventKey="3">         {libraries.map(getValue)}</Panel>
+                <Panel header="บำนาญ" eventKey="4">            {libraries.map(getValue)}</Panel>
+                <Panel header="สะสมทรัพย์" eventKey="5">         {libraries.map(getValue)}</Panel>
+                <Panel header="โตเกียว เฮลธ์ แพ็คเกจ" eventKey="6">  {libraries.map(getValue)}</Panel>
+            </Accordion> ;
         }
-
-        var accordionList = ( 
-              <Accordion> 
-                <Panel header="แอนนิวตี้" eventKey="1">          {Array1.map(getValue)}</Panel>
-                <Panel header="ตลอดชีพ" eventKey="2">           {Array2.map(getValue)}</Panel>
-                <Panel header="ชั่วระยะเวลา" eventKey="3">         {Array3.map(getValue)}</Panel>
-                <Panel header="บำนาญ" eventKey="4">            {Array4.map(getValue)}</Panel>
-                <Panel header="สะสมทรัพย์" eventKey="5">         {Array5.map(getValue)}</Panel>
-                <Panel header="โตเกียว เฮลธ์ แพ็คเกจ" eventKey="6">  {Array6.map(getValue)}</Panel>
-              </Accordion>    
-        );
-
-        return <div>
-                  <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Type here" />
-                    <Accordion> 
-                      {libraries.map(function(l){
-                          return <input type="button" onClick={setText} value={l.name}/>
-                        })}
-                    </Accordion> 
+        
+        return  <div>
+                    <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Type here" />
+                    {accordionList}
                 </div>;
 
 
@@ -168,9 +158,6 @@ var SearchExample = React.createClass({
                         <SearchExample items={ libraries } />
                           
                         </Modal.Header>
-                      <Modal.Footer>
-                        <input type="submit" bsClass="submit" onClick={checkModal} value="ยืนยัน"/>
-                      </Modal.Footer>
                     </Modal>
                 </ButtonToolbar>
 		);
