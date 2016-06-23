@@ -20448,7 +20448,17 @@
 	                    x.setAttribute("value", result);
 	                }, function (e) {});
 	            };
-
+	            var acc = document.getElementsByClassName("accordion");
+	            var i;
+	            var check = function check() {
+	                for (i = 0; i < acc.length; i++) {
+	                    acc[i].onclick = function () {
+	                        console.log(i);
+	                        this.classList.toggle("active");
+	                        this.nextElementSibling.classList.toggle("show");
+	                    };
+	                }
+	            };
 	            //Check Modal Function
 	            var checkModal = function checkModal() {
 	                if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
@@ -20479,89 +20489,119 @@
 	            var getValue = function getValue(value) {
 	                return _react2.default.createElement('input', { type: 'button', onClick: setText, value: value.name });
 	            };
-
 	            var SearchExample = _react2.default.createClass({
 	                displayName: 'SearchExample',
+
 
 	                getInitialState: function getInitialState() {
 	                    return { searchString: '' };
 	                },
 	                handleChange: function handleChange(e) {
+
 	                    // If you comment out this line, the text box will not change its value.
 	                    // This is because in React, an input cannot change independently of the value
 	                    // that was assigned to it. In our case this is this.state.searchString.
 
 	                    this.setState({ searchString: e.target.value });
 	                },
-	                checkAc: function checkAc() {
 
-	                    return accordionList;
-	                },
 	                render: function render() {
+
 	                    var libraries = this.props.items,
 	                        searchString = this.state.searchString.trim().toLowerCase();
 
-	                    var accordionList;
 	                    if (searchString.length > 0) {
 	                        // We are searching. Filter the results.
-	                        accordionList = _react2.default.createElement(
-	                            _reactBootstrap.Accordion,
-	                            null,
-	                            libraries.map(function (l) {
-	                                return _react2.default.createElement('input', { type: 'button', onClick: setText, value: l.name });
-	                            })
-	                        );
+
 	                        libraries = libraries.filter(function (l) {
 	                            return l.name.toLowerCase().match(searchString);
 	                        });
-	                    } else {
-	                        accordionList = _react2.default.createElement(
-	                            _reactBootstrap.Accordion,
-	                            null,
-	                            _react2.default.createElement(
-	                                _reactBootstrap.Panel,
-	                                { header: 'แอนนิวตี้', eventKey: '1' },
-	                                '          ',
-	                                libraries.map(getValue)
-	                            ),
-	                            _react2.default.createElement(
-	                                _reactBootstrap.Panel,
-	                                { header: 'ตลอดชีพ', eventKey: '2' },
-	                                '           ',
-	                                libraries.map(getValue)
-	                            ),
-	                            _react2.default.createElement(
-	                                _reactBootstrap.Panel,
-	                                { header: 'ชั่วระยะเวลา', eventKey: '3' },
-	                                '         ',
-	                                libraries.map(getValue)
-	                            ),
-	                            _react2.default.createElement(
-	                                _reactBootstrap.Panel,
-	                                { header: 'บำนาญ', eventKey: '4' },
-	                                '            ',
-	                                libraries.map(getValue)
-	                            ),
-	                            _react2.default.createElement(
-	                                _reactBootstrap.Panel,
-	                                { header: 'สะสมทรัพย์', eventKey: '5' },
-	                                '         ',
-	                                libraries.map(getValue)
-	                            ),
-	                            _react2.default.createElement(
-	                                _reactBootstrap.Panel,
-	                                { header: 'โตเกียว เฮลธ์ แพ็คเกจ', eventKey: '6' },
-	                                '  ',
-	                                libraries.map(getValue)
-	                            )
-	                        );
 	                    }
+
+	                    var accordionList = _react2.default.createElement(
+	                        'div',
+	                        { className: 'scroll' },
+	                        _react2.default.createElement(
+	                            'button',
+	                            { className: 'accordion', onClick: check },
+	                            'แอนนิวตี้'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'panel' },
+	                            libraries.map(getValue)
+	                        ),
+	                        _react2.default.createElement(
+	                            'button',
+	                            { className: 'accordion', onClick: check },
+	                            'ตลอดชีพ'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'panel' },
+	                            libraries.map(getValue)
+	                        ),
+	                        _react2.default.createElement(
+	                            'button',
+	                            { className: 'accordion', onClick: check },
+	                            'ชั่วระยะเวลา'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'panel' },
+	                            libraries.map(getValue)
+	                        ),
+	                        _react2.default.createElement(
+	                            'button',
+	                            { className: 'accordion', onClick: check },
+	                            'บำนาญ'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'panel' },
+	                            libraries.map(getValue)
+	                        ),
+	                        _react2.default.createElement(
+	                            'button',
+	                            { className: 'accordion', onClick: check },
+	                            'สะสมทรัพย์'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'panel' },
+	                            libraries.map(getValue)
+	                        ),
+	                        _react2.default.createElement(
+	                            'button',
+	                            { className: 'accordion', onClick: check },
+	                            'โตเกียว เฮลธ์ แพ็คเกจ'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'panel' },
+	                            libraries.map(getValue)
+	                        )
+	                    );
+
+	                    var accordionsearch = _react2.default.createElement(
+	                        'div',
+	                        { className: 'scroll' },
+	                        libraries.map(function (l) {
+	                            return _react2.default.createElement('input', { type: 'button', onClick: setText, value: l.name });
+	                        })
+	                    );
 
 	                    return _react2.default.createElement(
 	                        'div',
 	                        null,
 	                        _react2.default.createElement('input', { type: 'text', value: this.state.searchString, onChange: this.handleChange, placeholder: 'Type here' }),
-	                        accordionList
+	                        function () {
+	                            if (searchString == 0) {
+	                                return accordionList;
+	                            } else {
+	                                return accordionsearch;
+	                            }
+	                        }()
 	                    );
 	                }
 	            });
@@ -40296,7 +40336,7 @@
 
 
 	// module
-	exports.push([module.id, "body{\n\tbackground: white;\n\ttext-align: center;\n}\nh4 a{\n\twidth: 100%;\n    display: inline-block;\n    text-decoration: none;\n    color: #0095A9;\n\ttext-align: left;\n\tcontent: '\\25B6';\n}\ninput[type=\"submit\"]{\n\twidth: 100%;\n\tpadding: 15px 0px;\n\tborder-color: #ddd;\n\tborder: 1px;\n\tbackground-color: #0095A9;\n\tdisplay: inline-block;\n\toutline: 0;\n\tcolor: white;\n}\ninput[type=\"text\"]{\n\tbackground: white;\n\tpadding: 10px 15px;\n\tborder-color: #ddd;\n\tborder-radius: 5px;\n\toutline: 0;\n\twidth: 100%;\n}\ninput[type=\"button\"]{\n\tpadding: 15px 20px;\n\tbackground-color: white;\n\twidth: 100%;\n\toutline: 0;\n\tborder:0px;\n\ttext-align: left;\n\tborder-radius: 0;\n}\ninput[type=\"button\"]:hover{\n\tbackground: #E3E3E3;\n\tcursor: pointer;\n}\ninput[type=\"button\"]:focus{\n\tbackground: #E3E3E3;\n\tborder: 1px;\n\tborder-color: #ddd;\n}", ""]);
+	exports.push([module.id, "body{\n\tbackground: white;\n\ttext-align: center;\n}\n.close {\n    color: #aaa;\n    float: right;\n    font-size: 28px;\n    font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n    color: black;\n    text-decoration: none;\n    cursor: pointer;\n}\n.scroll{\n\tmax-height: 500px;\n    overflow-y:scroll;\n}\nbutton.accordion {\n    background-color: #eee;\n    color: #444;\n    cursor: pointer;\n    padding: 18px;\n    width: 100%;\n    border: none;\n    text-align: left;\n    outline: none;\n    font-size: 15px;\n    transition: 0.4s;\n}\n\nbutton.accordion.active, button.accordion:hover {\n    background-color: #ddd;\n}\n\nbutton.accordion:after {\n    content: '\\25B6';\n    font-size: 13px;\n    color: #777;\n    float: right;\n    margin-left: 5px;\n}\n\nbutton.accordion.active:after {\n    content: \"\\25BC\";\n}\n\ndiv.panel {\n    margin-bottom: 0px!important;\n    background-color: white;\n    max-height: 0;\n    overflow: hidden;\n    transition: 0.6s ease-in-out;\n    opacity: 0;\n    border:none!important;\n}\n\ndiv.panel.show {\n    opacity: 1;\n    max-height: 500px;\n}\nh4 a{\n\twidth: 100%;\n    display: inline-block;\n    text-decoration: none;\n    color: #0095A9;\n\ttext-align: left;\n}\ninput[type=\"submit\"]{\n\twidth: 100%;\n\tpadding: 15px 0px;\n\tborder-color: #ddd;\n\tborder: 1px;\n\tbackground-color: #0095A9;\n\tdisplay: inline-block;\n\toutline: 0;\n\tcolor: white;\n}\ninput[type=\"text\"]{\n\tbackground: white;\n\tpadding: 10px 15px;\n\tborder-color: #ddd;\n\tborder-radius: 5px;\n\toutline: 0;\n\twidth: 100%;\n}\ninput[type=\"button\"]{\n\tpadding: 15px 20px;\n\tbackground-color: white;\n\twidth: 100%;\n\toutline: 0;\n\tborder:0px;\n\ttext-align: left;\n}\ninput[type=\"button\"]:hover{\n\tbackground: #eee;\n\tcursor: pointer;\n}\ninput[type=\"button\"]:focus{\n\tbackground: #eee;\n\tborder: 1px;\n\tborder-color: #ddd;\n}", ""]);
 
 	// exports
 

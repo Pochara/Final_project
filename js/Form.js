@@ -30,9 +30,17 @@ export default class Form extends React.Component{
 			
 			});
 		};
-
-
-
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+        var check=()=>{
+            for (i = 0; i < acc.length; i++) {
+                acc[i].onclick = function(){
+                    console.log(i);
+                    this.classList.toggle("active");
+                    this.nextElementSibling.classList.toggle("show");
+                }
+            }
+        }
     	 //Check Modal Function
         var checkModal=()=> {
 			if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
@@ -66,67 +74,87 @@ export default class Form extends React.Component{
 
        			);
         };
-
 var SearchExample = React.createClass({
+
     getInitialState: function(){
         return { searchString: '' };
     },
     handleChange: function(e){
+
         // If you comment out this line, the text box will not change its value.
         // This is because in React, an input cannot change independently of the value
         // that was assigned to it. In our case this is this.state.searchString.
 
         this.setState({searchString:e.target.value});
     },
-    checkAc: function(){
-        
-        return accordionList;
-    },
+
     render: function() {
+
         var libraries = this.props.items,
             searchString = this.state.searchString.trim().toLowerCase();
 
-        var accordionList;
+
         if(searchString.length > 0){
             // We are searching. Filter the results.
-            accordionList=
-            <Accordion> 
-                {libraries.map(function(l){
-                  return <input type="button" onClick={setText} value={l.name}/>
-                })}
-            </Accordion>;
+
             libraries = libraries.filter(function(l){
                 return l.name.toLowerCase().match( searchString );
             });
-        }else{
-            accordionList = <Accordion> 
-                <Panel header="แอนนิวตี้" eventKey="1">          {libraries.map(getValue)}</Panel>
-                <Panel header="ตลอดชีพ" eventKey="2">           {libraries.map(getValue)}</Panel>
-                <Panel header="ชั่วระยะเวลา" eventKey="3">         {libraries.map(getValue)}</Panel>
-                <Panel header="บำนาญ" eventKey="4">            {libraries.map(getValue)}</Panel>
-                <Panel header="สะสมทรัพย์" eventKey="5">         {libraries.map(getValue)}</Panel>
-                <Panel header="โตเกียว เฮลธ์ แพ็คเกจ" eventKey="6">  {libraries.map(getValue)}</Panel>
-            </Accordion> ;
         }
 
-        
-        return  <div>
-                    <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Type here" />
-                    {accordionList}
+     var accordionList = ( 
+        <div className="scroll">
+            <button className="accordion" onClick={check}>แอนนิวตี้</button>
+            <div className="panel">
+            {libraries.map(getValue)}
+            </div>
+            <button className="accordion" onClick={check}>ตลอดชีพ</button>
+            <div className="panel">
+            {libraries.map(getValue)}
+            </div>
+            <button className="accordion" onClick={check}>ชั่วระยะเวลา</button>
+            <div className="panel">
+            {libraries.map(getValue)}
+            </div>
+            <button className="accordion" onClick={check}>บำนาญ</button>
+            <div className="panel">
+            {libraries.map(getValue)}
+            </div>
+            <button className="accordion" onClick={check}>สะสมทรัพย์</button>
+            <div className="panel">
+            {libraries.map(getValue)}
+            </div>
+            <button className="accordion" onClick={check}>โตเกียว เฮลธ์ แพ็คเกจ</button>
+            <div className="panel">
+            {libraries.map(getValue)}
+            </div>   
+        </div>
+        );
+ 
+
+        var accordionsearch = (
+                    <div className="scroll"> 
+                      {libraries.map(function(l){
+                          return <input type="button" onClick={setText} value={l.name}/>
+                        })}
+                    </div> 
+        );
+
+
+        return <div>
+                  <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Type here" />
+                {(() => {
+                if(searchString == 0){
+                    return accordionList;
+                }else{
+                    return accordionsearch;
+                }
+                })()}
                 </div>;
         }
     }
     );
-
-
-
-
-
-
-
-
-
-
+    
 
       var libraries = [
     { name: 'Backbone.js'},
